@@ -11,8 +11,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class UpdateServiceLogCommand extends Command
 {
+    /*  Here we added short description of command */
     protected static $defaultName = 'UpdateServiceLog';
-    protected static $defaultDescription = 'Add a short description for your command';
+    protected static $defaultDescription = 'Behind the scence command is working on an algorithm which is basically parses the file and insert it into database. It is importing manually, and it should be able to start where it left off when interrupted';
 
     protected function configure(): void
     {
