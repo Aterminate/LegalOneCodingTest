@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ServiceAnalytic;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,23 +64,38 @@ class ApiController extends AbstractController
     {
         $searchParameters       = array();
         $serviceAnalyticsData   = $this->entityManager->getRepository(ServiceAnalytic::class);
-        // set parameters for search
-        if( !empty($servicename))  { $searchParameters['serviceName']  = $servicename; }
-        if( !empty($statuscode) ) { $searchParameters['statusCode']    = $statuscode; }
-        if( !empty($startdate)) { $searchParameters['startDate']       = $startdate; }
-        if( !empty($enddate) ) { $searchParameters['endDate']          = $enddate; }
 
+        // set parameters for search
+        // check every variable for empty
+        // if exists then push in to set-parameter array
+        if( !empty($servicename)) {  $searchParameters['serviceName']  = $servicename; }
+        if( !empty($statuscode) ) {  $searchParameters['statusCode']   = $statuscode; }
+
+        if( !empty($startdate))   {
+            $startdatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", $startdate );
+            $searchParameters['startDate']    = $startdatetime;
+        }
+        if( !empty($enddate))   {
+            $enddatetime = \DateTime::createFromFormat( "Y-m-d H:i:s", $enddate );
+            $searchParameters['endDate']    = $enddatetime;
+        }
         // dd($searchParameters);
         // query for search parameters
         $data                   = $serviceAnalyticsData->findBy(
-                                                                $searchParameters
-                                                             );
+                                                             $searchParameters
+                                                         );
         // dd($data);
         $count = 0; // set counter 0
+
+        // Avoid error if $age and $name are empty
+        if (count($data) == 0){
+            throw new \Exception('Error ...');
+        }
+        // loop through every item and set counter
         foreach ($data as $d){
             // count ++ for every record
             $count++;
         }
-        dd($count);
+        dd("{ counter: ".$count." } ");
     }
 }
