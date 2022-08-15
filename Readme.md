@@ -135,6 +135,8 @@
 4.  Added all logics in controller and tested through postman
 
 
+I have implemented the solution in **PHP 7.2.5**, using the **Symfony 5.4** framework and document the solution in the README file. You may use the template app provided in the `devbox` folder (see included README file for details). 
+
 
 How to execute project:
 
