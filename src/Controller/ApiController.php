@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ServiceAnalytic;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     /**
      * @Route("/api", name="app_api")
      */
@@ -41,12 +51,35 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/fetchapi_count", name="fetchapi_count", methods={"GET"})
+     * @Route("/api/fetchapi_count/{servicename?}/{statuscode?}/{startdate?}/{enddate?}", name="fetchapi_count", methods={"GET"})
+     *
+     * @param string|null $servicename
+     * @param string|null $statuscode
+     * @param string|null $startdate
+     * @param string|null $enddate
+     * @return Response
      */
-    public function fetchapi_count(): Response
+    public function fetchapi_count(?string $servicename = null , ?string $statuscode = null , ?string $startdate = null , ?string $enddate = null): Response
     {
-        
+        $searchParameters       = array();
+        $serviceAnalyticsData   = $this->entityManager->getRepository(ServiceAnalytic::class);
+        // set parameters for search
+        if( !empty($servicename))  { $searchParameters['serviceName']  = $servicename; }
+        if( !empty($statuscode) ) { $searchParameters['statusCode']    = $statuscode; }
+        if( !empty($startdate)) { $searchParameters['startDate']       = $startdate; }
+        if( !empty($enddate) ) { $searchParameters['endDate']          = $enddate; }
+
+        // dd($searchParameters);
+        // query for search parameters
+        $data                   = $serviceAnalyticsData->findBy(
+                                                                $searchParameters
+                                                             );
+        // dd($data);
+        $count = 0; // set counter 0
+        foreach ($data as $d){
+            // count ++ for every record
+            $count++;
+        }
+        dd($count);
     }
-
-
 }
