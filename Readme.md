@@ -3,8 +3,10 @@
 ----------------------------                        LEGAL ONE CODING CHALLENGE                       ----------------------
 
 ---------------------------------------------------------------------------------------------------------------------------
-
-    Steps to execute
+    
+	Overall Process
+	
+    Steps To Create Project Setup
 
 
 1.  Run the following command to create a symfony project in version 5.4 or you want to build a tradational web application
@@ -62,7 +64,7 @@
     Then name it according to your needs  
 
 
-12. Creating Migrations & Database Schema of the table and run the commands sequentially
+12. Create Migrations & Database Schema of the table and run the commands sequentially
 
     - php bin/console make:migration	
 	- php bin/console doctrine:migrations:migrate
@@ -97,12 +99,12 @@
 2.  Secondly, add / remove all stuff in command related to task. Additionally do some changings in services.yaml in files
 
 
-3.  Algorithm for task one
+3.  Algorithm for task one to follow 
 
-	 -  A console command which finds file 
-     -  Loops through service csv (I added some restrictions on project and made the logic for csv files. Test the file which is place inside public folder for more records)
-     -  Adds new items to DB
-     -  Updates data of existing ones in DB
+	-  A console command which finds file 
+    -  Loops through service csv (I added some restrictions on project and made the logic for csv files. Test the file which is place inside public folder for more records)
+    -  Adds new items to DB
+    -  Updates data of existing ones in DB
 	 
 4.  Lastly, run the command for getting output 
   
@@ -115,6 +117,24 @@
                     T A S K --- T W O
 
 ----------------------------------------------------------
+
+1.  Create an entity class of service_analytics 
+
+    - php bin/console make:entity 
+	- php bin/console make:migration	
+	- php bin/console doctrine:migrations:migrate
+
+2.  Create controller class ApiController
+    
+    - php bin/console make:controller ApiController	
+	
+3.  Run server command 
+
+    - php bin/console server:dump
+	
+
+
+
 	
 	 
 	 

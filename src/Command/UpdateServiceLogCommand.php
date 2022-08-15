@@ -29,6 +29,7 @@ class UpdateServiceLogCommand extends Command
         $this->entityManager  = $entityManager;
         parent::__construct();
     }
+
     // execute function
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -76,6 +77,7 @@ class UpdateServiceLogCommand extends Command
         /***********************************************************/
         /***********************************************************/
     }
+
     // function for checking service item
     public function checkServiceItem($serviceProduct)
     {
@@ -93,7 +95,8 @@ class UpdateServiceLogCommand extends Command
         // otherwise create new service item
         $this->createNewServiceItem($serviceProduct);
     }
-    // function for check create new service item
+
+    // function for  create new service item
     public function createNewServiceItem($serviceProduct){
         // call entity
         $newServiceItem   = new ServiceLogs();
@@ -105,7 +108,8 @@ class UpdateServiceLogCommand extends Command
         $this->entityManager->persist($newServiceItem);
 
     }
-    // function for check update service item
+
+    // function for  update service item
     public function updateServiceItem($existingStockItem , $supplierProduct){
         // update item in Service DB
         $existingStockItem->setStatusCode($supplierProduct['status_code']);
