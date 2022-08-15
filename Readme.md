@@ -130,11 +130,23 @@
 	
 3.  Run server command 
 
-    - php bin/console server:dump
-	
+    - php bin/console server:run
+
+4.  Added all logics in controller and tested through postman
 
 
 
+How to execute project:
+
+
+1.  Check env connections, change it if needed
+2.  Create a database name 'legal_one_coding_test'
+3.  Migrate all tables 
+4.  For Task one run "php bin/console make:command UpdateServiceLog"
+5.  For Task two install postman and test url with followig sequence
+    localhost:8000/api/fetchapi_count/user-service/200/2022-08-15 09:28:29/2022-08-15 09:28:29
+	- first indicate service name , second codestatus, third start datetime , last  enddatetime	
+6.  If you need to ask anything email me at: 'helloaysha178@gmail.com'	
 	
 	 
 	 
